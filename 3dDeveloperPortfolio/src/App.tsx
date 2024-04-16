@@ -18,6 +18,7 @@ transfer glb to gltf
 https://gltf.pmnd.rs/
 
 npm i @react-spring/three
+ npm i @emailjs/browser
 
 */}
 

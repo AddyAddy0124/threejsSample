@@ -6,6 +6,7 @@ import Island from '../models/Island.jsx';
 import Sky from '../models/Sky.jsx';
 import Bird from '../models/Bird.jsx';
 import Plane from '../models/Plane.jsx';
+import HomeInfo from '../components/HomeInfo.js';
 
 /* if import jsx file in tsx
 1. Create a global.d.ts
@@ -24,8 +25,8 @@ declare module '*.jsx' {
 */
 
 const Home = () => {
-  const [isRotating, setIsRotating] = useState(false);
-  const [currentStage, setCurrentStage] = useState(1)
+  const [isRotating, setIsRotating] = useState<boolean>(false);
+  const [currentStage, setCurrentStage] = useState<number>(1)
 
   const adjustIslandForScreenSize = () => {
     let screenScale = null;
@@ -62,6 +63,9 @@ const Home = () => {
 
   return (
     <section className='w-full h-screen relative'>
+      <div className='absolute top-28 left-0 right-0 z-10 flex items-center justify-center'>
+        {currentStage && <HomeInfo  currentStage={currentStage} />}
+      </div>
       <Canvas 
         className={`w-full h-screen bg-transparent ${isRotating ? 
           'cursor-grabbing':'cursor-grab'}`}
