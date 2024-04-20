@@ -3,6 +3,8 @@ import Navbar from "./components/Navbar";
 import { Home, About, Projects, Contact } from "./page";
 
 {/*
+https://www.youtube.com/watch?v=FkowOdMjvYo&t=2486s
+
 npm create vite@latest
 npm i react-router-dom
 npm install -D tailwindcss postcss autoprefixer
@@ -18,7 +20,9 @@ transfer glb to gltf
 https://gltf.pmnd.rs/
 
 npm i @react-spring/three
- npm i @emailjs/browser
+npm i @emailjs/browser
+
+npm i react-vertical-timeline-component
 
 */}
 
@@ -26,7 +30,7 @@ npm i @react-spring/three
 function App() {
 
   return (
-    <main className='bg-slate-300/20'>
+    <main className='bg-slate-300/20 h-full'>
       <Router>
         <Navbar />
         <Routes>

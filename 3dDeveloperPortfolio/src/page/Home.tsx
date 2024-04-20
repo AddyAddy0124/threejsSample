@@ -1,4 +1,4 @@
-import { Suspense, useState } from 'react';
+import { Suspense, useState, useEffect, useRef } from 'react';
 
 import { Canvas } from '@react-three/fiber'
 import Loader from '../components/Loader';
@@ -7,6 +7,9 @@ import Sky from '../models/Sky.jsx';
 import Bird from '../models/Bird.jsx';
 import Plane from '../models/Plane.jsx';
 import HomeInfo from '../components/HomeInfo.js';
+
+import sakura from '../assets/sakura.mp3';
+import { soundoff, soundon } from '../assets/icons/index.js';
 
 /* if import jsx file in tsx
 1. Create a global.d.ts
@@ -25,8 +28,21 @@ declare module '*.jsx' {
 */
 
 const Home = () => {
+  const audioRef = useRef(new Audio(sakura));
+  audioRef.current.volume = 0.4;
+  audioRef.current.loop = true;
   const [isRotating, setIsRotating] = useState<boolean>(false);
-  const [currentStage, setCurrentStage] = useState<number>(1)
+  const [currentStage, setCurrentStage] = useState<number>(1);
+  const [isPlayingMusic, setIsPlayingMusic] = useState(false);
+
+  useEffect(() => {
+    if(isPlayingMusic) {
+      audioRef.current.play();
+    }
+    return () => {
+      audioRef.current.pause();
+    }
+  }, [isPlayingMusic])
 
   const adjustIslandForScreenSize = () => {
     let screenScale = null;
@@ -87,8 +103,8 @@ const Home = () => {
               />
             <Plane 
               isRotating = {isRotating}
-              planePosition = {isPlanePosition}
-              planeScale = {isPlaneScale}
+              position = {isPlanePosition}
+              scale = {isPlaneScale}
               rotation = {[0, 20, 0]}
               />
           <Island 
@@ -102,7 +118,14 @@ const Home = () => {
         </Suspense>
       </Canvas>
 
-  
+      <div className='absolute bottom-2 left-2'>
+        <img 
+          src={!isPlayingMusic ? soundoff : soundon}
+          alt='sound'
+          className='w-10 h-10 cursor-pointer object-contain'
+          onClick={() => setIsPlayingMusic(!isPlayingMusic)}
+        />
+      </div>
     </section>
   )
 }
